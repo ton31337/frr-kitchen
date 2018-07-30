@@ -1,4 +1,5 @@
 Vagrant.configure(2) do |config|
+  config.vm.provision :shell, inline: 'apt update'
   config.vm.provision :shell, inline: 'apt install build-essential libjson-c-dev python-dev libreadline-dev libc-ares-dev python-sphinx texinfo git autoconf libtool bison flex install-info python-pip realpath equivs groff fakeroot debhelper devscripts debhelper lintian systemd -y'
   config.vm.provision :shell, inline: 'apt update && apt install libsystemd-dev -y'
   config.vm.provision :shell, inline: 'pip install ipaddr pytest'
