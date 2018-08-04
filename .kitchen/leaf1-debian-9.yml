@@ -1,7 +1,0 @@
----
-last_error: 
-hostname: 127.0.0.1
-port: '2200'
-username: vagrant
-ssh_key: "/home/donatas/projects/frr-default-originate/.kitchen/kitchen-vagrant/leaf1-debian-9/.vagrant/machines/default/virtualbox/private_key"
-last_action: converge
