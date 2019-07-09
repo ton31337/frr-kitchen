@@ -5,6 +5,8 @@ driver:
 
 provisioner:
   name: chef_zero
+  client_rb:
+    chef_license: accept
 
 platforms:
   - name: debian-9
