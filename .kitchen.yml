@@ -13,6 +13,10 @@ platforms:
     driver:
       vagrantfiles:
         - provision-debian.rb
+  - name: ubuntu-18.04
+    driver:
+      vagrantfiles:
+        - provision-ubuntu.rb
   - name: centos-7.6
     driver:
       vagrantfiles:
