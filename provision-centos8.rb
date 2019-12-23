@@ -16,4 +16,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, inline: 'cp /usr/local/bin/vtysh /usr/bin/vtysh'
   config.vm.provision :shell, inline: 'cp /root/frr/tools/frr.service /etc/systemd/system/frr.service && systemctl daemon-reload && systemctl restart frr'
   config.vm.provision :shell, inline: 'systemctl enable frr'
+  config.vm.provision :shell, inline: 'cd /root/frr && make dist'
+  config.vm.provision :shell, inline: 'mkdir -p /root/frr/rpmbuild/{SOURCES,SPECS}'
+  config.vm.provision :shell, inline: 'cp /root/frr/redhat/*.spec /root/frr/rpmbuild/SPECS'
+  config.vm.provision :shell, inline: 'cp /root/frr/frr*.tar.gz /root/frr/rpmbuild/SOURCES'
 end
