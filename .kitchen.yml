@@ -21,6 +21,7 @@ platforms:
     driver:
       vagrantfiles:
         - provision-centos.rb
+  - name: centos-8
 
 suites:
   - name: exit1
