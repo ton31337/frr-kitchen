@@ -1,6 +1,6 @@
 Vagrant.configure(2) do |config|
   config.vm.provision :shell, inline: 'dnf install -y epel-release'
-  config.vm.provision :shell, inline: 'dnf -y --enablerepo=PowerTools install c-ares-devel texinfo bison byacc flex json-c-devel systemd-devel git gawk make readline-devel net-snmp-devel pkgconfig pcre-devel libtool automake autoconf python3 python3-devel python3-sphinx python3-kobo-rpmlib rpm-build net-snmp-devel pam-devel libcap-devel'
+  config.vm.provision :shell, inline: 'dnf -y --enablerepo=PowerTools install c-ares-devel texinfo bison byacc flex json-c-devel systemd-devel git gawk make readline-devel net-snmp-devel pkgconfig pcre-devel libtool automake autoconf python2 python2-devel python3-sphinx rpm-build net-snmp-devel pam-devel libcap-devel'
   config.vm.provision :shell, inline: 'groupadd --system --gid 92 frr && groupadd --system --gid 95 frrvty && adduser --system --gid frr --home /var/opt/frr --shell /bin/false frr && usermod -a -G frrvty frr'
   config.vm.provision :shell, inline: 'git clone https://github.com/ton31337/frr /root/frr'
   config.vm.provision :shell, inline: 'wget -O libyang.rpm https://ci1.netdef.org/artifact/LIBYANG-YANGRELEASE/shared/build-10/CentOS-7-x86_64-Packages/libyang-0.16.111-0.x86_64.rpm'
