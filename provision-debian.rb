@@ -4,7 +4,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, inline: 'curl -s https://deb.frrouting.org/frr/keys.asc | sudo apt-key add -'
   config.vm.provision :shell, inline: 'echo deb https://deb.frrouting.org/frr $(lsb_release -s -c) frr-stable | sudo tee -a /etc/apt/sources.list.d/frr.list'
   config.vm.provision :shell, inline: 'apt update'
-  config.vm.provision :shell, inline: 'apt install librtr0 librtr-dev build-essential libjson-c-dev python-dev libreadline-dev libc-ares-dev python-sphinx texinfo git autoconf libtool bison flex install-info python-pip realpath equivs groff fakeroot debhelper devscripts debhelper lintian systemd libpcre3-dev libpcre16-3 libpcre32-3 libpcrecpp0v5 pkg-config vim mininet iproute gdb libcap-dev -y'
+  config.vm.provision :shell, inline: 'apt install librtr0 librtr-dev build-essential libjson-c-dev python-dev python3.5-dev libreadline-dev libc-ares-dev python-sphinx texinfo git autoconf libtool bison flex install-info python-pip realpath equivs groff fakeroot debhelper devscripts debhelper lintian systemd libpcre3-dev libpcre16-3 libpcre32-3 libpcrecpp0v5 pkg-config vim mininet iproute gdb libcap-dev -y'
   config.vm.provision :shell, inline: 'apt update && apt install libsystemd-dev -y'
   config.vm.provision :shell, inline: 'pip install ipaddr pytest'
   config.vm.provision :shell, inline: 'addgroup --system --gid 92 frr && addgroup --system --gid 85 frrvty && adduser --system --ingroup frr --home /var/opt/frr/ \
