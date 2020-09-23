@@ -25,6 +25,7 @@ platforms:
     driver:
       vagrantfiles:
         - provision-centos8.rb
+  - name: juniper/vqfx10k-re
 
 suites:
   - name: exit1
