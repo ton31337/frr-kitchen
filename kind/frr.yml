@@ -1,0 +1,111 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frr
+data:
+  daemons: |
+    bgpd=yes
+    vtysh_enable=yes
+    zebra_options="  -A 127.0.0.1 -s 90000000"
+    bgpd_options="   -A 127.0.0.1"
+    staticd_options="-A 127.0.0.1"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node1
+data:
+  frr.conf: |
+    debug bgp updates
+    debug bgp neigh
+    log file /var/log/frr/frr.log
+    router bgp 65001
+     bgp router-id 0.0.0.1
+     no bgp ebgp-requires-policy
+     neighbor 172.18.0.4 remote-as external
+     address-family ipv4 unicast
+      redistribute connected
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: node2
+data:
+  frr.conf: |
+    debug bgp updates
+    debug bgp neigh
+    log file /var/log/frr/frr.log
+    router bgp 65002
+     bgp router-id 0.0.0.2
+     no bgp ebgp-requires-policy
+     neighbor 172.18.0.2 remote-as external
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node1
+  labels:
+    app: frr
+spec:
+  hostNetwork: true
+  containers:
+    - name: frr
+      image: quay.io/frrouting/frr:stable_8.1
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN", "NET_ADMIN", "NET_RAW", "SYS_TIME"]
+      volumeMounts:
+      - name: daemons
+        mountPath: /etc/frr/daemons
+        subPath: daemons
+      - name: config
+        mountPath: /etc/frr/frr.conf
+        subPath: frr.conf
+  volumes:
+    - name: daemons
+      configMap:
+        name: frr
+        items:
+        - key: daemons
+          path: daemons
+    - name: config
+      configMap:
+        name: node1
+        items:
+        - key: frr.conf
+          path: frr.conf
+---
+kind: Pod
+apiVersion: v1
+metadata:
+  name: node2
+  labels:
+    app: frr
+spec:
+  hostNetwork: true
+  containers:
+    - name: frr
+      image: quay.io/frrouting/frr:stable_8.1
+      securityContext:
+        capabilities:
+          add: ["SYS_ADMIN", "NET_ADMIN", "NET_RAW", "SYS_TIME"]
+      volumeMounts:
+      - name: daemons
+        mountPath: /etc/frr/daemons
+        subPath: daemons
+      - name: config
+        mountPath: /etc/frr/frr.conf
+        subPath: frr.conf
+  volumes:
+    - name: daemons
+      configMap:
+        name: frr
+        items:
+        - key: daemons
+          path: daemons
+    - name: config
+      configMap:
+        name: node2
+        items:
+        - key: frr.conf
+          path: frr.conf
