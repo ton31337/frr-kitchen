@@ -1,6 +1,6 @@
 Vagrant.configure(2) do |config|
   config.vm.provision :shell, inline: 'yum install -y epel-release'
-  config.vm.provision :shell, inline: 'yum install -y libpcap-devel libpcap libpcap-devel libpcap protobuf-c protobuf-c-devel python36 python36-devel vim strace git autoconf automake libtool make gawk readline-devel texinfo net-snmp-devel groff pkgconfig json-c-devel pam-devel bison flex pytest c-ares-devel python-devel systemd-devel python-sphinx python-pip'
+  config.vm.provision :shell, inline: 'yum install -y rpm-build libpcap-devel libpcap libpcap-devel libpcap protobuf-c protobuf-c-devel python36 python36-devel vim strace git autoconf automake libtool make gawk readline-devel texinfo net-snmp-devel groff pkgconfig json-c-devel pam-devel bison flex pytest c-ares-devel python-devel systemd-devel python-sphinx python-pip'
   config.vm.provision :shell, inline: 'pip install ipaddr pytest'
   config.vm.provision :shell, inline: 'groupadd --system --gid 92 frr && groupadd --system --gid 95 frrvty && adduser --system --gid frr --home /var/opt/frr --shell /bin/false frr && usermod -a -G frrvty frr'
   config.vm.provision :shell, inline: 'git clone https://github.com/ton31337/frr /root/frr'
