@@ -9,6 +9,7 @@ provisioner:
     chef_license: accept
 
 platforms:
+  - name: debian-10
   - name: debian-11
     driver:
       vagrantfiles:
