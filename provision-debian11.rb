@@ -10,8 +10,8 @@ Vagrant.configure(2) do |config|
   config.vm.provision :shell, inline: 'addgroup --system --gid 92 frr && addgroup --system --gid 85 frrvty && adduser --system --ingroup frr --home /var/run/frr/ \
      --gecos "FRR suite" --shell /bin/false frr && usermod -a -G frrvty frr'
   config.vm.provision :shell, inline: 'git clone https://github.com/ton31337/frr /root/frr'
-  config.vm.provision :shell, inline: 'wget -O /root/libyang-dev.deb https://ci1.netdef.org/artifact/LIBYANG-LIBYANGV2/shared/build-2/Debian-11-x86_64-Packages/libyang2-dev_2.0.0.10.g2eb910e4-1_amd64.deb'
-  config.vm.provision :shell, inline: 'wget -O /root/libyang.deb https://ci1.netdef.org/artifact/LIBYANG-LIBYANGV2/shared/build-2/Debian-11-x86_64-Packages/libyang2_2.0.0.10.g2eb910e4-1_amd64.deb'
+  config.vm.provision :shell, inline: 'wget -O /root/libyang-dev.deb https://ci1.netdef.org/artifact/LIBYANG-LIBYANGV2/shared/build-12/Ubuntu-18.04-x86_64-Packages/libyang2-dev_2.0.7-1%7Eubuntu18.04u1_amd64.deb'
+  config.vm.provision :shell, inline: 'wget -O /root/libyang.deb https://ci1.netdef.org/artifact/LIBYANG-LIBYANGV2/shared/build-12/Ubuntu-18.04-x86_64-Packages/libyang2_2.0.7-1%7Eubuntu18.04u1_amd64.deb'
   config.vm.provision :shell, inline: 'dpkg -i /root/libyang-dev.deb /root/libyang.deb'
   config.vm.provision :shell, inline: 'cd /root/frr && ./bootstrap.sh'
   config.vm.provision :shell, inline: 'cd /root/frr && ./configure --enable-systemd --enable-exampledir=/usr/share/doc/frr/examples/ --localstatedir=/var/run/frr --sbindir=/usr/lib/frr --sysconfdir=/etc/frr --enable-vtysh --enable-isisd --enable-pimd --enable-watchfrr --enable-ospfclient=yes --enable-ospfapi=yes --enable-multipath=64 --enable-user=frr --enable-group=frr --enable-vty-group=frrvty --enable-configfile-mask=0640 --enable-logfile-mask=0640 --enable-rtadv --enable-fpm --enable-ldpd --with-pkg-git-version --with-pkg-extra-version=-MyOwnFRRVersion --enable-rpki=yes --enable-sharpd --enable-usdt=yes --enable-snmp && make -j$(nproc) && make install'
